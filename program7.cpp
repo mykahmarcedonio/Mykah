@@ -3,16 +3,16 @@ using namespace std;
 
 int main() { 
     float distance; 
-    float flare; 
+    float fare; 
 
     cout << "Please enter the total distance of the ride: "; 
     cin >> distance;
 
     if(distance > 4) 
-        flare = 40.0f + (distance - 4) * 5; 
+        fare = 40.0f + (distance - 4) * 5; 
     else 
-        flare = distance * 10.0f; 
+        fare = distance * 10.0f; 
 
-    cout << "Your total flare is " << flare;
+    cout << "Your total fare is " << fare;
 
 }
