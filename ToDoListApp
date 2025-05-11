@@ -1,0 +1,113 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics.Eventing.Reader;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace SimpleToDoApp
+{
+    public partial class Form1 : Form
+    {
+        private string filePath = " Task.txt ";
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            string task = textBoxTask.Text.Trim();
+            if (!string.IsNullOrEmpty(task))
+            {
+                ListBoxTasks.Items.Add(task);
+                textBoxTask.Clear();
+                textBoxTask.Focus();
+            }
+            else
+            {
+                MessageBox.Show(" Please enter a task. ");
+            }
+        }
+
+        private void buttonRemove_Click(object sender, EventArgs e)
+        {
+            if (ListBoxTasks.SelectedIndex != -1)
+            {
+                ListBoxTasks.Items.RemoveAt(ListBoxTasks.SelectedIndex);
+            }
+            else
+            {
+                MessageBox.Show(" Plese select a task to remove. ");
+            }
+        }
+
+        private void buttonDone_Click(object sender, EventArgs e)
+        {
+            int index = ListBoxTasks.SelectedIndex;
+            if (index != -1)
+            {
+                string task = ListBoxTasks.Items[index].ToString();
+                if (task.StartsWith(" Check "))
+                {
+                    task = task.Substring(2); // UNMARK TO!
+                }
+                else
+                {
+                    task = " Checked " + task; // Mark as Done
+                }
+                ListBoxTasks.Items[index] = task;
+            }
+            else
+            {
+                MessageBox.Show(" Please Select a Task to mark as done. ");
+            }
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            SaveTasks();
+            MessageBox.Show(" Task Saved Wow galing taena! ");
+        }
+
+        private void buttonLoad_Click(object sender, EventArgs e)
+        {
+            LoadTasks();
+            MessageBox.Show(" Tasks Loaded Yehey! ");
+        }
+        private void SaveTasks()
+        {
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                foreach (var item in ListBoxTasks.Items)
+                {
+                    writer.WriteLine(item.ToString());
+                }
+            }
+        }
+
+        private void LoadTasks()
+        {
+            ListBoxTasks.Items.Clear();
+            if (File.Exists(filePath))
+            {
+                string[] tasks = File.ReadAllLines(filePath);
+                ListBoxTasks.Items.AddRange(tasks);
+            }
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+    }
+}
