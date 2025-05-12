@@ -64,7 +64,7 @@ namespace SimpleToDoApp
                 }
                 else
                 {
-                    task = " Checked " + task; // Mark as Done
+                    task = " ✅ " + task; // Mark as Done
                 }
                 ListBoxTasks.Items[index] = task;
             }
@@ -77,13 +77,13 @@ namespace SimpleToDoApp
         private void buttonSave_Click(object sender, EventArgs e)
         {
             SaveTasks();
-            MessageBox.Show(" Task Saved Wow galing taena! ");
+            MessageBox.Show(" Task Saved ");
         }
 
         private void buttonLoad_Click(object sender, EventArgs e)
         {
             LoadTasks();
-            MessageBox.Show(" Tasks Loaded Yehey! ");
+            MessageBox.Show(" Tasks Loaded ");
         }
         private void SaveTasks()
         {
